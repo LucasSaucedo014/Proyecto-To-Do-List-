@@ -71,7 +71,29 @@ const TaskItem = ({ task, onToggleComplete, onDelete, onDeletePermanently }) => 
   };
 
   const handleDeletePermanently = () => {
-    onDeletePermanently(task.id);
+    // Mostrar el cuadro de diálogo con dos opciones: Eliminar o Cancelar
+    Swal.fire({
+      title: '¿Deseas eliminar permanentemente esta tarea?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#dc3545',
+      cancelButtonColor: '#6c757d',
+      confirmButtonText: 'Eliminar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Si el usuario elige "Eliminar", realiza la eliminación permanente
+        onDeletePermanently(task.id);
+        setTasks((prevTasks) => prevTasks.filter((t) => t.id !== task.id));
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Tarea eliminada permanentemente',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    });
   };
 
   return (

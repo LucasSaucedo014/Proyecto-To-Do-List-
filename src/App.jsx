@@ -38,6 +38,10 @@ const App = () => {
     );
   };
 
+  const handleDeletePermanently = (taskId) => {
+    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
+  };
+
   // Función para añadir una nueva tarea a la lista.
   const handleAddTask = (taskText) => {
     const newTask = { id: tasks.length + 1, text: taskText, completed: false, deleted: false };
@@ -72,7 +76,7 @@ const App = () => {
           <button onClick={() => setFilter('deleted')}>Eliminadas</button>
         </div>
         {/* Componente para mostrar la lista de tareas. */}
-        <TaskList tasks={filteredTasks} onToggleComplete={handleToggleComplete} onDelete={handleDelete} />
+        <TaskList tasks={filteredTasks} onToggleComplete={handleToggleComplete} onDelete={handleDelete} onDeletePermanently={handleDeletePermanently} setTasks={setTasks}/>
       </div>
       <Footer />
     </AppWrapper>

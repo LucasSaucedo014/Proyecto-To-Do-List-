@@ -23,11 +23,14 @@ a:hover {
 }
 
 body {
-  margin: 0;
   display: flex;
-  place-items: center;
-  min-width: 320px;
   min-height: 100vh;
+  flex-direction: column;
+ 
+}
+body, html {
+  margin: 0;
+  padding: 0;
 }
 
 h1 {
@@ -68,9 +71,36 @@ button:focus-visible {
 }
 
 footer {
-  width: 100%;
+  width: 31%;
   height: 5.2rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: fixed;
+  bottom: 0;
+  background-color: #333;
+}
+
+footer a {
+  font-size: 35px;
+  color: white;  
+  text-decoration: none;  
+}
+
+@media (max-width: 768px) {
+  footer {
+    width: 75%; 
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1280px) {
+  footer {
+    width: 48%; 
+  }
+}
+
+@media (min-width: 1281px) and (max-width: 1920px) {
+  footer {
+    width: 31%; 
+  }
 }
