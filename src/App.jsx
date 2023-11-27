@@ -4,6 +4,7 @@ import TaskList from './components/TaskList';
 import TaskForm from './components/TaskForm';
 import styled from 'styled-components';
 import './App.css';
+import Footer from './components/Footer';
 
 // Se utiliza styled-components para aplicar estilos al contenedor principal de la aplicación.
 const AppWrapper = styled.div`
@@ -73,6 +74,7 @@ const App = () => {
         {/* Componente para mostrar la lista de tareas. */}
         <TaskList tasks={filteredTasks} onToggleComplete={handleToggleComplete} onDelete={handleDelete} />
       </div>
+      <Footer />
     </AppWrapper>
   );
 };

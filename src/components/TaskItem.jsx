@@ -1,11 +1,11 @@
-// src/components/TaskItem.jsx
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import Swal from 'sweetalert2';
 
 const TaskItemWrapper = styled.div`
   margin-bottom: 10px;
   padding: 10px;
-  background-color: #f0f0f0;
+  background-color: black;
   border: 1px solid #ccc;
   display: flex;
   justify-content: space-between;
@@ -15,6 +15,7 @@ const TaskItemWrapper = styled.div`
     flex-grow: 1;
     margin-right: 10px;
     text-decoration: ${(props) => (props.completed ? 'line-through' : 'none')};
+    color: ${(props) => (props.completed ? 'green' : 'inherit')};
   }
 
   button {
@@ -27,32 +28,67 @@ const TaskItemWrapper = styled.div`
       background-color: #bd2130;
     }
   }
+
+  .botonCompletado {
+    background-color: #008000;
+    margin-right: 10px;
+    &:hover {
+      background-color: #0a4b0a;
+    }
+  }
 `;
 
-
 const TaskItem = ({ task, onToggleComplete, onDelete, onDeletePermanently }) => {
-    const [completed, setCompleted] = useState(task.completed);
-  
-    const handleToggleComplete = () => {
-      setCompleted(!completed);
-      onToggleComplete(task.id);
-    };
-  
-    const handleDeletePermanently = () => {
-      onDeletePermanently(task.id);
-    };
-  
-    return (
-      <TaskItemWrapper completed={completed}>
-        <span>{task.text}</span>
-        {!task.deleted && (
-          <button onClick={handleToggleComplete}>Tarea Completada</button>
-        )}
-        <button onClick={() => (task.deleted ? handleDeletePermanently() : onDelete(task.id))}>
-          {task.deleted ? 'Eliminar Permanentemente' : 'Eliminar'}
-        </button>
-      </TaskItemWrapper>
-    );
+  const [completed, setCompleted] = useState(task.completed);
+
+  const handleToggleComplete = () => {
+    const newCompletedState = !completed;
+
+    // Mostrar la alerta de SweetAlert2 al completar/desmarcar la tarea
+    Swal.fire({
+      position: 'top-end',
+      icon: newCompletedState ? 'success' : 'warning',
+      title: newCompletedState ? 'Tarea Completada' : 'Tarea Desmarcada',
+      showConfirmButton: false,
+      timer: 1500,
+    });
+
+    setCompleted(newCompletedState);
+    onToggleComplete(task.id);
   };
-  
-  export default TaskItem;
+
+  const handleDelete = () => {
+    onDelete(task.id);
+
+    // Mostrar la alerta de SweetAlert2 al eliminar la tarea
+    Swal.fire({
+      position: 'top-end',
+      icon: 'error',
+      title: 'Tarea eliminada',
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  };
+
+  const handleDeletePermanently = () => {
+    onDeletePermanently(task.id);
+  };
+
+  return (
+    <TaskItemWrapper completed={completed}>
+      <span>
+        {task.text} {completed && '(completado)'}
+      </span>
+      {!task.deleted && (
+        <button className='botonCompletado' onClick={handleToggleComplete}>
+          {completed ? '✔️ Desmarcar Tarea' : '✔️ Completar Tarea'}
+        </button>
+      )}
+      <button onClick={() => (task.deleted ? handleDeletePermanently() : handleDelete())}>
+        {task.deleted ? 'Eliminar Permanentemente' : '❌ Eliminar Tarea'}
+      </button>
+    </TaskItemWrapper>
+  );
+};
+
+export default TaskItem;
