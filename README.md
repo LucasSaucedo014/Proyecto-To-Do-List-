@@ -14,7 +14,7 @@ Integrantes:
 <li>Lucas Emmanuel Saucedo Bruno</li>
 <li>Franco Della Vecchia</li>
 <li>Ivan David Bosch</li>
-<li>Matias Wyso</li>
+<li>Matias Wysoczanski</li>
 </ul>
 
 <br>
