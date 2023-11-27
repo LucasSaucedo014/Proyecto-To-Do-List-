@@ -1,6 +1,6 @@
 # Proyecto-Integrador-UTN
 <h1> Detalles del trabajo </h1>
-Nombre del proyecto:
+Nombre del proyecto: Lista de Tareas con REACT
 <ul>
 Proyecto final integrador REACT Grupo 2
 </ul>
