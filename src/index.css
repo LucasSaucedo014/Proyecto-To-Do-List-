@@ -98,8 +98,13 @@ footer a {
     width: 48%; 
   }
 }
+@media (min-width: 1281px) and (max-width: 1366px) {
+  footer {
+    width: 45%;
+  }
+}
 
-@media (min-width: 1281px) and (max-width: 1920px) {
+@media (min-width: 1367px) and (max-width: 1920px) {
   footer {
     width: 31%; 
   }
